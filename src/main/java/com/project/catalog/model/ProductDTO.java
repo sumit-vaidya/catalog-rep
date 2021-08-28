@@ -15,6 +15,16 @@ public class ProductDTO implements Serializable {
 	private String productName;
 
 	private CategoryDTO category;
+	
+	public ProductDTO() {}	
+
+	public ProductDTO(Integer productId, String productName, CategoryDTO category) {
+		super();
+		this.productId = productId;
+		this.productName = productName;
+		this.category = category;
+	}
+
 
 	public Integer getProductId() {
 		return productId;

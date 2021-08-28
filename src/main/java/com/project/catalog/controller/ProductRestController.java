@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.catalog.model.CategoryDTO;
 import com.project.catalog.model.ProductDTO;
-import com.project.catalog.service.ICategoryService;
 import com.project.catalog.service.IProductService;
 
 @RestController

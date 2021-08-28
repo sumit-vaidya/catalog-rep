@@ -1,6 +1,5 @@
 package com.project.catalog.serviceImpl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,8 +45,8 @@ public class CategoryAttributeServiceImpl implements ICategoryAttributeService {
 		List<CategoryAttributes> categoryAttributesList = attributeRepository.findAll();
 
 		List<CategoryAttributesDTO> categoryAttributeDTOList = categoryAttributesList.stream()
-				.map(categoryAttributeDTO -> new CategoryAttributesDTO(categoryAttributeDTO.getAttributeId(),
-						categoryAttributeDTO.getAttributeName(), categoryAttributeDTO.getAttributeValue()))
+				.map(categoryAttribute -> new CategoryAttributesDTO(categoryAttribute.getAttributeId(),
+						categoryAttribute.getAttributeName(), categoryAttribute.getAttributeValue()))
 				.collect(Collectors.toList());
 
 		return categoryAttributeDTOList;

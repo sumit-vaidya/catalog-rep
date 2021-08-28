@@ -15,7 +15,19 @@ public class CategoryDTO implements Serializable {
 
 	private String categoryName;
 	
-	private List<SelectedCategoryAttributesDTO> categoryAttributes = new ArrayList<>();
+	private List<SelectedCategoryAttributesDTO> categoryAttributes = new ArrayList<>();	
+	
+	public CategoryDTO() {
+		
+	}
+	
+	public CategoryDTO(Integer categoryId, String categoryName,
+			List<SelectedCategoryAttributesDTO> categoryAttributes) {
+		super();
+		this.categoryId = categoryId;
+		this.categoryName = categoryName;
+		this.categoryAttributes = categoryAttributes;
+	}
 
 	public Integer getCategoryId() {
 		return categoryId;

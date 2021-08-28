@@ -20,6 +20,16 @@ public class SelectedCategoryAttributes {
 	@Column(length = 30)
 	private String selectedAttributeValue;
 
+	public SelectedCategoryAttributes() {}
+
+	public SelectedCategoryAttributes(Integer selectedAttributeId, String selectedAttributeName,
+			String selectedAttributeValue) {
+		super();
+		this.selectedAttributeId = selectedAttributeId;
+		this.selectedAttributeName = selectedAttributeName;
+		this.selectedAttributeValue = selectedAttributeValue;
+	}
+
 	public Integer getSelectedAttributeId() {
 		return selectedAttributeId;
 	}

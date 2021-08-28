@@ -14,6 +14,16 @@ public class SelectedCategoryAttributesDTO implements Serializable {
 	private String selectedAttributeName;
 	
 	private String selectedAttributeValue;
+	
+	public SelectedCategoryAttributesDTO() {}
+
+	public SelectedCategoryAttributesDTO(Integer selectedAttributeId, String selectedAttributeName,
+			String selectedAttributeValue) {
+		super();
+		this.selectedAttributeId = selectedAttributeId;
+		this.selectedAttributeName = selectedAttributeName;
+		this.selectedAttributeValue = selectedAttributeValue;
+	}
 
 	public Integer getSelectedAttributeId() {
 		return selectedAttributeId;
