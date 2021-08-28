@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.project.catalog.entity.CategoryAttributes;
 import com.project.catalog.model.CategoryAttributesDTO;
@@ -23,6 +24,7 @@ public class CategoryAttributeServiceImpl implements ICategoryAttributeService {
 	private CategoryAttributeRepository attributeRepository;
 
 	@Override
+	@Transactional
 	public String addCategoryAttribute(CategoryAttributesDTO categoryAttributeDTO) {
 		logger.info("FR-INFO Method  CategoryAttributeServiceImpl.addCategoryAttribute");		
 		CategoryAttributes categoryAttributes = new CategoryAttributes();

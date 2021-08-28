@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.project.catalog.entity.Category;
 import com.project.catalog.entity.CategoryAttributes;
@@ -42,6 +43,7 @@ public class CategoryServiceImpl implements ICategoryService {
 	}
 
 	@Override
+	@Transactional
 	public String addCategory(CategoryDTO categoryDTO) {
 		logger.info("FR-INFO Method  CategoryServiceImpl.addCategory");
 		Category category = new Category();
