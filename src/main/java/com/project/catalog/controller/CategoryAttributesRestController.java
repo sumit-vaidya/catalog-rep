@@ -19,9 +19,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @RestController
-public class CategoryRestAttributeController {
+public class CategoryAttributesRestController {
 	
-	private static final Logger logger = LogManager.getLogger(CategoryRestAttributeController.class);
+	private static final Logger logger = LogManager.getLogger(CategoryAttributesRestController.class);
 	
 	@Autowired
 	private ICategoryAttributeService  service;
