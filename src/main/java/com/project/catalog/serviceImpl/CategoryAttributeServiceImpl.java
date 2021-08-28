@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.catalog.entity.CategoryAttributes;
-import com.project.catalog.model.CategoryAttributeDTO;
+import com.project.catalog.model.CategoryAttributesDTO;
 import com.project.catalog.repository.CategoryAttributeRepository;
 import com.project.catalog.service.ICategoryAttributeService;
 
@@ -24,10 +24,8 @@ public class CategoryAttributeServiceImpl implements ICategoryAttributeService {
 	private CategoryAttributeRepository attributeRepository;
 
 	@Override
-	public String addCategoryAttribute(CategoryAttributeDTO categoryAttributeDTO) {
-		logger.info("FR-INFO Method  CategoryAttributeServiceImpl.addCategoryAttribute");
-		// Formation of Category Attribute object to store in the Category Attribute
-		// table of database
+	public String addCategoryAttribute(CategoryAttributesDTO categoryAttributeDTO) {
+		logger.info("FR-INFO Method  CategoryAttributeServiceImpl.addCategoryAttribute");		
 		CategoryAttributes categoryAttributes = new CategoryAttributes();
 		BeanUtils.copyProperties(categoryAttributeDTO, categoryAttributes);
 
@@ -35,24 +33,35 @@ public class CategoryAttributeServiceImpl implements ICategoryAttributeService {
 				.findByAttributeName(categoryAttributes.getAttributeName());
 
 		if (findCategoryAttributes != null && findCategoryAttributes.getAttributeId() != 0) {
-			return "Category already exists";
+			return "Category Attribute already exists";
 		} else {
 			attributeRepository.save(categoryAttributes);
-			return "Category is added to database";
+			return "Category Attribute is added to database";
 		}
 	}
 
 	@Override
-	public List<CategoryAttributeDTO> findAllCategoryAttribute() {
+	public List<CategoryAttributesDTO> findAllCategoryAttribute() {
 		logger.info("FR-INFO Method  CategoryAttributeServiceImpl.findAllCategoryAttribute");
 		List<CategoryAttributes> categoryAttributesList = attributeRepository.findAll();
 
-		List<CategoryAttributeDTO> categoryAttributeDTOList = categoryAttributesList.stream()
-				.map(categoryAttributeDTO -> new CategoryAttributeDTO(categoryAttributeDTO.getAttributeId(),
+		List<CategoryAttributesDTO> categoryAttributeDTOList = categoryAttributesList.stream()
+				.map(categoryAttributeDTO -> new CategoryAttributesDTO(categoryAttributeDTO.getAttributeId(),
 						categoryAttributeDTO.getAttributeName(), categoryAttributeDTO.getAttributeValue()))
 				.collect(Collectors.toList());
 
 		return categoryAttributeDTOList;
+	}
+
+	@Override
+	public String deleteCategoryAttribute(Integer id) {
+		logger.info("FR-INFO Method  CategoryAttributeServiceImpl.deleteCategoryAttribute : "+id);
+		String message = "Category Attribute doesn't exist";
+		if(attributeRepository.existsById(id)) {
+			attributeRepository.deleteById(id);
+			message = "Category Attribute is deleted from database";
+		}
+		return message;
 	}
 
 }

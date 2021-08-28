@@ -2,12 +2,14 @@ package com.project.catalog.service;
 
 import java.util.List;
 
-import com.project.catalog.model.CategoryAttributeDTO;
+import com.project.catalog.model.CategoryAttributesDTO;
 
 public interface ICategoryAttributeService {
 
-	String addCategoryAttribute(CategoryAttributeDTO categoryAttributeDTO);
+	String addCategoryAttribute(CategoryAttributesDTO categoryAttributeDTO);
 
-	List<CategoryAttributeDTO> findAllCategoryAttribute();
+	List<CategoryAttributesDTO> findAllCategoryAttribute();
+
+	String deleteCategoryAttribute(Integer id);
 
 }

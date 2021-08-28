@@ -2,7 +2,7 @@ package com.project.catalog.model;
 
 import java.io.Serializable;
 
-public class CategoryAttributeDTO implements Serializable {
+public class CategoryAttributesDTO implements Serializable {
 
 	/**
 	 * 
@@ -13,9 +13,9 @@ public class CategoryAttributeDTO implements Serializable {
 	private String attributeName;	
 	private String attributeValue;
 	
-	public CategoryAttributeDTO() {}
+	public CategoryAttributesDTO() {}
 	
-	public CategoryAttributeDTO(Integer attributeId, String attributeName, String attributeValue) {
+	public CategoryAttributesDTO(Integer attributeId, String attributeName, String attributeValue) {
 		super();
 		this.attributeId = attributeId;
 		this.attributeName = attributeName;
