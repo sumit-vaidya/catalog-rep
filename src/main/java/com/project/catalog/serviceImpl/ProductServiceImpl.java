@@ -1,6 +1,7 @@
 package com.project.catalog.serviceImpl;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
@@ -12,11 +13,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.project.catalog.entity.Category;
 import com.project.catalog.entity.Product;
 import com.project.catalog.entity.SelectedCategoryAttributes;
+import com.project.catalog.exception.CategoryNotFoundException;
 import com.project.catalog.model.CategoryDTO;
 import com.project.catalog.model.ProductDTO;
 import com.project.catalog.model.SelectedCategoryAttributesDTO;
 import com.project.catalog.repository.ProductRepository;
 import com.project.catalog.service.IProductService;
+import com.project.catalog.util.CatalogErrorCode;
+import com.project.catalog.util.CatalogResponse;
 
 @Service
 public class ProductServiceImpl implements IProductService {
@@ -78,4 +82,44 @@ public class ProductServiceImpl implements IProductService {
 		return message;
 	}
 
+	@Override
+	public ProductDTO findProductById(Integer id) throws CategoryNotFoundException {
+		logger.info("FR-INFO Method  ProductServiceImpl.findProductById : " + id);
+		ProductDTO productDTO = new ProductDTO();
+		try {
+			Optional<Product> product = productRepository.findById(id);
+
+			// if search criteria is not matched then throwing user defined exception
+			if (product == null) {
+				CategoryNotFoundException asException = new CategoryNotFoundException();
+				CatalogResponse errorResponse = new CatalogResponse();
+				logger.error(
+						"LYT-ERROR Method ProductServiceImpl.findProductById : Search criteria doesn't meet... ");
+				errorResponse.setErrorMsg("Search criteria doesn't meet...");
+				errorResponse.setErrorCode(CatalogErrorCode.ERR_SEARCH_NOT_FOUND);
+				asException.setCatalogResponse(errorResponse);
+			}
+			productDTO.setProductId(product.get().getProductId());
+			productDTO.setProductName(product.get().getProductName());
+			Category category = product.get().getCategory();
+			CategoryDTO categoryDTO = new CategoryDTO();
+			categoryDTO.setCategoryId(category.getCategoryId());
+			categoryDTO.setCategoryName(category.getCategoryName());
+			List<SelectedCategoryAttributesDTO> list = category.getCategoryAttributes().stream()
+			.map(item -> new SelectedCategoryAttributesDTO(item.getSelectedAttributeId(),
+					item.getSelectedAttributeName(), item.getSelectedAttributeValue()))
+			.collect(Collectors.toList());
+			categoryDTO.setCategoryAttributes(list);
+			productDTO.setCategory(categoryDTO);
+		} catch (Exception e) {
+			CategoryNotFoundException asException = new CategoryNotFoundException();
+			CatalogResponse errorResponse = new CatalogResponse();
+			logger.error("LYT-ERROR Method ProductServiceImpl.findProductById " + e, e);
+			errorResponse.setErrorMsg("Something went wrong while searching");
+			errorResponse.setErrorCode(CatalogErrorCode.ERR_SEARCH_PROCESSING);
+			asException.setCatalogResponse(errorResponse);
+			throw asException;
+		}
+		return productDTO;
+	}
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.catalog.exception.CategoryNotFoundException;
 import com.project.catalog.model.ProductDTO;
 import com.project.catalog.service.IProductService;
 
@@ -36,6 +37,12 @@ public class ProductRestController {
 	public String addProduct(@RequestBody ProductDTO productDTO) {
 		logger.info("FR-INFO Method  ProductRestController.addProduct");
 		return service.addProduct(productDTO);		
+	}
+	
+	@GetMapping(value="/v1/catalog/product/search/{id}", produces="application/json")
+	public ProductDTO  findProductById(@PathVariable Integer id) throws CategoryNotFoundException {
+		logger.info("FR-INFO Method  ProductRestController.findProductById  : "+ id);
+		return service.findProductById(id);	
 	}
 	
 	@DeleteMapping(value="/v1/catalog/product/delete/{id}")

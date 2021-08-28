@@ -2,12 +2,12 @@ package com.project.catalog.exception;
 
 import com.project.catalog.util.CatalogResponse;
 
-public class ProductNotFoundException extends Exception {
+public class CategoryNotFoundException extends Exception {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 969886303220027560L;
+	private static final long serialVersionUID = -3390888880988379213L;
 	
 	CatalogResponse catalogResponse;
 
@@ -17,5 +17,6 @@ public class ProductNotFoundException extends Exception {
 
 	public void setCatalogResponse(CatalogResponse catalogResponse) {
 		this.catalogResponse = catalogResponse;
-	}	
+	} 
+	
 }
